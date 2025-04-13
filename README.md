@@ -1,22 +1,29 @@
-# Faculdade UniFECAF
+# Sistema de Gestão Acadêmica - Faculdade UniFECAF
 
 
 
-# Título do Projeto
+## Título do Projeto
 
-Criando uma base de dados para que atenda um sistema de uma faculdade.
+**Criando uma base de dados para que atenda um sistema de uma faculdade.**
 
-# Projeto
-Os proprietários de uma faculdade precisam de um sistema que viabilize o
-armazenamento de informações sobre seus alunos, cursos, matérias e professores para
-que seja possível realizar controles básicos como montar turmas e realizar o
-armazenamento de notas dos alunos.
-Com base no que foi apresentado acima, o aluno deve criar um banco de dados que
-ofereça suporte para que um sistema possa armazenar informações que atendam a
-necessidade do cliente.
+## Sobre o Projeto
 
-# OBJETIVOS DE APRENDIZAGEM (PLANO DE APRENDIZAGEM):
-- Análise de requisitos
-- Modelagem conceitual
-- Modelagem lógica
-- Modelagem física
+Este repositório contém o desenvolvimento de um banco de dados  para atender às necessidades de uma **Faculdade**, uma instituição de ensino superior que busca um sistema para gerenciar informações sobre **alunos**, **cursos**, **matérias**, **professores**, **matrículas** e **notas**. O objetivo é viabilizar controles operacionais básicos, como a montagem de turmas e o armazenamento de notas dos alunos, garantindo organização, integridade e acessibilidade dos dados.
+
+O projeto foi estruturado em várias etapas, abrangendo desde a análise de requisitos até a implementação física do banco de dados. As ferramentas utilizadas incluem o **MySQL Workbench** e o **brModelo** para modelagem, e o **MySQL 8.0.41** rodando em uma instância do **Ubuntu Server 24.10** para implementação. 
+
+## Objetivos do Projeto
+
+- Criar um banco de dados relacional que suporte o armazenamento de informações sobre alunos, cursos, matérias, professores, matrículas e notas.
+- Garantir controles básicos, como formação de turmas e registro de notas.
+- Aplicar boas práticas de modelagem de dados nas fases conceitual, lógica e física.
+- Documentar o processo, incluindo diagramas e scripts SQL.
+
+## Objetivos de Aprendizagem
+
+Este projeto foi desenvolvido com foco nos seguintes objetivos de aprendizagem:
+
+- **Análise de Requisitos**: Identificação das necessidades da Faculdade, definindo entidades, atributos e relacionamentos necessários.
+- **Modelagem Conceitual**: Criação de um Diagrama Entidade-Relacionamento (DER) para representar as entidades e seus relacionamentos.
+- **Modelagem Lógica**: Conversão do modelo conceitual em tabelas, com definição de chaves primárias, estrangeiras e tipos de dados.
+- **Modelagem Física**: Implementação do banco no MySQL, com scripts para criação de tabelas e constraints.
