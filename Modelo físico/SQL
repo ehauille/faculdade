@@ -1,0 +1,177 @@
+# Criar base de dados
+create database faculdade;
+# Seleccionar a mesma
+use faculdade;
+
+# Começar a criar as tabelas 
+CREATE TABLE Alunos (
+    id_aluno INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    cpf CHAR(11) UNIQUE NOT NULL,
+    data_nascimento DATE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    telefone VARCHAR(15)
+);
+CREATE TABLE Cursos (
+    id_curso INT PRIMARY KEY AUTO_INCREMENT,
+    nome_curso VARCHAR(100) NOT NULL,
+    codigo_curso VARCHAR(10) UNIQUE NOT NULL,
+    duracao INT NOT NULL
+);
+CREATE TABLE Materias (
+    id_materia INT PRIMARY KEY AUTO_INCREMENT,
+    nome_materia VARCHAR(100) NOT NULL,
+    codigo_materia VARCHAR(10) UNIQUE NOT NULL,
+    carga_horaria INT NOT NULL,
+    id_curso INT,
+    FOREIGN KEY (id_curso) REFERENCES Cursos(id_curso)
+);
+CREATE TABLE Professores (
+    id_professor INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    cpf CHAR(11) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    telefone VARCHAR(15),
+    titulacao VARCHAR(50)
+);
+CREATE TABLE Matriculas (
+    id_matricula INT PRIMARY KEY AUTO_INCREMENT,
+    id_aluno INT,
+    id_curso INT,
+    data_matricula DATE NOT NULL,
+    FOREIGN KEY (id_aluno) REFERENCES Alunos(id_aluno),
+    FOREIGN KEY (id_curso) REFERENCES Cursos(id_curso)
+);
+CREATE TABLE Leciona (
+    id_leciona INT PRIMARY KEY AUTO_INCREMENT,
+    id_professor INT,
+    id_materia INT,
+    FOREIGN KEY (id_professor) REFERENCES Professores(id_professor),
+    FOREIGN KEY (id_materia) REFERENCES Materias(id_materia)
+);
+CREATE TABLE Notas (
+    id_nota INT PRIMARY KEY AUTO_INCREMENT,
+    id_aluno INT NOT NULL,
+    id_materia INT NOT NULL,
+    nota DECIMAL(4,2) NOT NULL, -- Ejemplo: 8.50, permite notas de 0.00 a 10.00
+    semestre VARCHAR(10) NOT NULL, -- Ejemplo: "2023/1"
+    FOREIGN KEY (id_aluno) REFERENCES Alunos(id_aluno),
+    FOREIGN KEY (id_materia) REFERENCES Materias(id_materia)
+);
+
+
+#Dados para inserir no Mysql-server
+
+# Cursos
+INSERT INTO Cursos (nome_curso, codigo_curso, duracao) VALUES
+('Engenharia de Software', 'ING001', 8),
+('Administração de Empresas', 'ADM001', 6),
+('Direito', 'DER001', 10),
+('Psicologia', 'PSI001', 8),
+('Medicina', 'MED001', 12),
+('Arquitetura', 'ARQ001', 10),
+('Ciências Biológicas', 'BIO001', 8),
+('Educação Física', 'EDF001', 6);
+ 
+-- Alunos
+INSERT INTO Alunos (nome, cpf, data_nascimento, email, telefone) VALUES
+('Ana Clara Silva', '12345678901', '2000-01-15', 'ana.silva@faculdade.com', '11987654321'),
+('João Pedro Souza', '98765432109', '1999-05-10', 'joao.souza@faculdade.com', '21987654321'),
+('Maria Luiza Oliveira', '45678912345', '2001-03-22', 'maria.oliveira@faculdade.com', '31987654321'),
+('Pedro Henrique Santos', '78912345678', '2000-07-30', 'pedro.santos@faculdade.com', '41987654321'),
+('Luisa Fernanda Costa', '32165498765', '1998-11-05', 'luisa.costa@faculdade.com', '51987654321'),
+('Rafael Augusto Almeida', '65498732143', '2002-02-18', 'rafael.almeida@faculdade.com', '61987654321'),
+('Camila Ribeiro Lima', '14725836912', '2000-09-12', 'camila.lima@faculdade.com', '71987654321'),
+('Lucas Gabriel Ferreira', '25836914703', '1999-12-25', 'lucas.ferreira@faculdade.com', '81987654321'),
+('Isabela Cristina Pereira', '36914725894', '2001-06-07', 'isabela.pereira@faculdade.com', '91987654321'),
+('Felipe André Mendes', '74185296300', '2000-04-19', 'felipe.mendes@faculdade.com', '10987654321'),
+('Beatriz Helena Rocha', '85296374112', '1998-08-03', 'beatriz.rocha@faculdade.com', '11976543210'),
+('Gustavo Henrique Barbosa', '96374185223', '2002-10-28', 'gustavo.barbosa@faculdade.com', '21976543210'),
+('Juliana Maria Dias', '15975348624', '1999-02-14', 'juliana.dias@faculdade.com', '31976543210'),
+('Thiago Vinicius Correia', '35795168435', '2001-11-09', 'thiago.correia@faculdade.com', '41976543210'),
+('Larissa Emanuelle Torres', '95175348646', '2000-05-23', 'larissa.torres@faculdade.com', '51976543210'),
+('Eduardo Rafael Gomes', '75395168457', '1999-07-16', 'eduardo.gomes@faculdade.com', '61976543210'),
+('Sofia Helena Cardoso', '48615975368', '2001-01-31', 'sofia.cardoso@faculdade.com', '71976543210'),
+('Matheus Felipe Araujo', '68435795179', '2000-03-27', 'matheus.araujo@faculdade.com', '81976543210'),
+('Gabriela Lais Monteiro', '57924681380', '1998-12-04', 'gabriela.monteiro@faculdade.com', '91976543210'),
+('Daniel Victor Borges', '24681357991', '2002-09-08', 'daniel.borges@faculdade.com', '10976543210');
+ 
+# Materias
+INSERT INTO Materias (nome_materia, codigo_materia, carga_horaria, id_curso) VALUES
+('Programação I', 'PROG101', 60, 1), ('Algoritmos e Estruturas de Dados', 'ALG101', 80, 1), ('Bancos de Dados', 'BD101', 60, 1),
+('Gestão Empresarial', 'GEST101', 40, 2), ('Contabilidade Geral', 'CONT101', 60, 2), ('Marketing Estratégico', 'MKT101', 40, 2),
+('Direito Civil', 'CIV101', 80, 3), ('Direito Penal', 'PEN101', 60, 3), ('Direito Constitucional', 'CONST101', 60, 3),
+('Psicologia Clínica', 'CLI101', 60, 4), ('Neuropsicologia', 'NEU101', 40, 4), ('Psicologia do Desenvolvimento', 'DES101', 60, 4),
+('Anatomia Humana', 'ANA101', 80, 5), ('Fisiologia', 'FIS101', 60, 5), ('Bioquímica Médica', 'BIOQ101', 60, 5),
+('Desenho Arquitetônico', 'DIS101', 80, 6), ('História da Arquitetura', 'HIST101', 40, 6), ('Estruturas I', 'EST101', 60, 6),
+('Genética', 'GEN101', 60, 7), ('Ecologia', 'ECO101', 60, 7), ('Biologia Molecular', 'BIOM101', 40, 7),
+('Fisiologia do Exercício', 'FISE101', 60, 8), ('Treinamento Desportivo', 'TRE101', 40, 8), ('Anatomia Aplicada', 'ANAP101', 60, 8);
+ 
+# Professores
+INSERT INTO Professores (nome, cpf, email, telefone, titulacao) VALUES
+('Carlos Eduardo Mendes', '11122233344', 'carlos.mendes@faculdade.com', '71987654321', 'Doutor'),
+('Fernanda Almeida Lima', '22233344455', 'fernanda.lima@faculdade.com', '81987654321', 'Mestre'),
+('Roberto Silva Pereira', '33344455566', 'roberto.pereira@faculdade.com', '91987654321', 'Doutor'),
+('Sofia Helena Ribeiro', '44455566677', 'sofia.ribeira@faculdade.com', '10987654321', 'Mestre'),
+('André Luiz Costa', '55566677788', 'andre.costa@faculdade.com', '11976543210', 'Doutor'),
+('Mariana Santos Dias', '66677788899', 'mariana.dias@faculdade.com', '21976543210', 'Mestre'),
+('Paulo Henrique Rocha', '77788899900', 'paulo.rocha@faculdade.com', '31976543210', 'Doutor'),
+('Clara Isabel Ferreira', '88899900011', 'clara.ferreira@faculdade.com', '41976543210', 'Especialista'),
+('Ricardo José Barbosa', '99900011122', 'ricardo.barbosa@faculdade.com', '51976543210', 'Doutor'),
+('Laura Cristina Torres', '00011122233', 'laura.torres@faculdade.com', '61976543210', 'Mestre'),
+('Eduardo Rafael Gomes', '11122233355', 'eduardo.gomes@faculdade.com', '71976543210', 'Doutor'),
+('Beatriz Lais Cardoso', '22233344466', 'beatriz.cardoso@faculdade.com', '81976543210', 'Mestre');
+ 
+# Matriculas
+INSERT INTO Matriculas (id_aluno, id_curso, data_matricula) VALUES
+(1, 1, '2023-01-10'), (2, 1, '2023-01-15'), (3, 1, '2023-01-20'), (4, 1, '2023-01-25'), (5, 1, '2023-02-01'),
+(6, 2, '2023-02-05'), (7, 2, '2023-02-10'), (8, 2, '2023-02-15'), (9, 2, '2023-02-20'), (10, 2, '2023-03-01'),
+(11, 3, '2023-03-05'), (12, 3, '2023-03-10'), (13, 3, '2023-03-15'), (14, 3, '2023-03-20'), (15, 3, '2023-04-01'),
+(16, 4, '2023-04-05'), (17, 4, '2023-04-10'), (18, 4, '2023-04-15'), (19, 4, '2023-04-20'), (20, 4, '2023-05-01'),
+(1, 5, '2023-05-05'), (2, 5, '2023-05-10'), (6, 5, '2023-05-15'), (7, 5, '2023-05-20'), (11, 5, '2023-06-01'),
+(3, 6, '2023-06-05'), (8, 6, '2023-06-10'), (12, 6, '2023-06-15'), (16, 6, '2023-06-20'), (17, 6, '2023-07-01'),
+(4, 7, '2023-07-05'), (9, 7, '2023-07-10'), (13, 7, '2023-07-15'), (18, 7, '2023-07-20'), (19, 7, '2023-08-01'),
+(5, 8, '2023-08-05'), (10, 8, '2023-08-10'), (14, 8, '2023-08-15'), (15, 8, '2023-08-20'), (20, 8, '2023-09-01');
+ 
+# Leciona
+INSERT INTO Leciona (id_professor, id_materia) VALUES
+(1, 1), (1, 2), (2, 3), (3, 4), (3, 5), (4, 6), (5, 7), (5, 8), (6, 9), (7, 10),
+(7, 11), (8, 12), (9, 13), (9, 14), (10, 15), (11, 16), (11, 17), (12, 18), (1, 19),
+(2, 20), (3, 21), (4, 22), (5, 23), (6, 24), (7, 1), (8, 4), (9, 7), (10, 10), (11, 13), (12, 16);
+ 
+# Notas
+INSERT INTO Notas (id_aluno, id_materia, nota, semestre) VALUES
+(1, 1, 8.50, '2023/1'), (1, 2, 7.80, '2023/1'), (1, 3, 9.00, '2023/2'),
+(2, 1, 6.50, '2023/1'), (2, 2, 8.00, '2023/1'), (2, 3, 7.20, '2023/2'),
+(3, 1, 9.50, '2023/1'), (3, 2, 8.90, '2023/1'),
+(4, 1, 7.00, '2023/1'), (4, 3, 8.30, '2023/2'),
+(5, 2, 6.80, '2023/1'),
+(6, 4, 8.20, '2023/1'), (6, 5, 7.50, '2023/1'), (6, 6, 9.10, '2023/2'),
+(7, 4, 6.90, '2023/1'), (7, 5, 8.40, '2023/2'),
+(8, 5, 7.70, '2023/1'), (8, 6, 8.60, '2023/2'),
+(9, 4, 9.00, '2023/1'), (9, 6, 7.30, '2023/2'),
+(10, 5, 8.10, '2023/1'),
+(11, 7, 8.80, '2023/1'), (11, 8, 7.90, '2023/1'), (11, 9, 9.20, '2023/2'),
+(12, 7, 6.70, '2023/1'), (12, 8, 8.50, '2023/2'),
+(13, 8, 7.60, '2023/1'), (13, 9, 8.30, '2023/2'),
+(14, 7, 9.10, '2023/1'), (14, 9, 7.40, '2023/2'),
+(15, 8, 8.00, '2023/1'),
+(16, 10, 8.40, '2023/1'), (16, 11, 7.80, '2023/1'), (16, 12, 9.00, '2023/2'),
+(17, 10, 6.90, '2023/1'), (17, 11, 8.20, '2023/2'),
+(18, 11, 7.50, '2023/1'), (18, 12, 8.70, '2023/2'),
+(19, 10, 9.30, '2023/1'), (19, 12, 7.60, '2023/2'),
+(20, 11, 8.10, '2023/1'),
+(1, 13, 7.90, '2023/1'), (1, 14, 8.60, '2023/2'),
+(2, 13, 6.80, '2023/1'), (2, 15, 7.70, '2023/2'),
+(6, 14, 8.30, '2023/1'), (6, 15, 9.10, '2023/2'),
+(7, 13, 7.40, '2023/1'),
+(11, 14, 8.50, '2023/1'),
+(3, 16, 8.70, '2023/1'), (3, 17, 7.50, '2023/2'),
+(8, 16, 9.00, '2023/1'), (8, 18, 8.20, '2023/2'),
+(12, 17, 7.80, '2023/1'),
+(4, 19, 8.40, '2023/1'), (4, 20, 7.90, '2023/2'),
+(9, 19, 6.70, '2023/1'), (9, 21, 8.50, '2023/2'),
+(13, 20, 9.20, '2023/1'),
+(5, 22, 8.60, '2023/1'), (5, 23, 7.70, '2023/2'),
+(10, 22, 9.10, '2023/1'), (10, 24, 8.30, '2023/2'),
+(14, 23, 7.50, '2023/1'), (14, 24, 8.80, '2023/2');
