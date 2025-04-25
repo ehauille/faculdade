@@ -1,7 +1,9 @@
-# Criar base de dados
 create database faculdade;
-# Seleccionar a mesma
+create user faculdade_user@localhost identified by 'secret-passsword’;
+ grant all privileges on faculdade.* to faculdade_user@localhost;
+flush privileges;
 use faculdade;
+
 
 # Começar a criar as tabelas 
 CREATE TABLE Alunos (
@@ -175,3 +177,6 @@ INSERT INTO Notas (id_aluno, id_materia, nota, semestre) VALUES
 (5, 22, 8.60, '2023/1'), (5, 23, 7.70, '2023/2'),
 (10, 22, 9.10, '2023/1'), (10, 24, 8.30, '2023/2'),
 (14, 23, 7.50, '2023/1'), (14, 24, 8.80, '2023/2');
+
+
+exit
