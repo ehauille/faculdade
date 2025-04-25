@@ -1,6 +1,6 @@
 create database faculdade;
 create user faculdade_user@localhost identified by 'secret-passsword’;
- grant all privileges on faculdade.* to faculdade_user@localhost;
+grant all privileges on faculdade.* to faculdade_user@localhost;
 flush privileges;
 use faculdade;
 
